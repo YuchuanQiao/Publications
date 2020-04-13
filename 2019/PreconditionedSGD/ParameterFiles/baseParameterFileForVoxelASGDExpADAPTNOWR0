@@ -1,0 +1,110 @@
+// ********** Image Types
+
+(FixedInternalImagePixelType "float")
+(FixedImageDimension 3)
+(MovingInternalImagePixelType "float")
+(MovingImageDimension 3)
+
+
+// ********** Components
+
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedSmoothingImagePyramid")
+(MovingImagePyramid "MovingSmoothingImagePyramid")
+(ImageSampler "RandomCoordinate")
+(Interpolator "LinearInterpolator")
+(Metric "AdvancedMeanSquares")
+(Optimizer "PreconditionedStochasticGradientDescent")
+(Transform "BSplineTransform")
+(ResampleInterpolator "FinalBSplineInterpolator")
+(Resampler "DefaultResampler")
+(BSplineTransformSplineOrder 3)
+
+// ********** Pyramid
+
+// Total number of resolutions
+(NumberOfResolutions 1)
+(ImagePyramidSchedule 1 1 1)
+
+//Order of B-Spline interpolation used in each resolution level:
+(BSplineInterpolationOrder 1)
+
+//Order of B-Spline interpolation used for applying the final deformation:
+(FinalBSplineInterpolationOrder 3)
+
+// ********** Metric
+
+(NumberOfHistogramBins 32)
+(FixedLimitRangeRatio 0.0)
+(MovingLimitRangeRatio 0.0)
+(FixedKernelBSplineOrder 1)
+(MovingKernelBSplineOrder 3)
+(UseFastAndLowMemoryVersion "true")
+
+// ********** Optimizer
+
+// Maximum number of iterations in each resolution level:
+
+(MaximumNumberOfIterations 500)
+(NumberOfSpatialSamples 5000)
+(AutomaticParameterEstimation "true")
+
+// ********** Transform
+
+(FinalGridSpacingInPhysicalUnits 10.0 10.0 10.0)
+(GridSpacingSchedule 1.0)
+(HowToCombineTransforms "Compose")
+(AutomaticTransformInitialization "true")
+(AutomaticTransformInitializationMethod "CenterOfGravity")
+(CenterOfGravityUseBonyInfo "true")
+(NumberOfSamplesForCenteredTransformInitialization 50000)
+(LowerThresholdForCenterGravity 200)
+(AutomaticScalesEstimation "false")
+
+// ********** Several
+
+(ShowExactMetricValue "false")
+(ExactMetricSampleGridSpacing 2)
+(ExactMetricEveryXIterations 1)
+(ErodeMask "false")
+(UseDirectionCosines "true")
+(NewSamplesEveryIteration "true")
+(UseRandomSampleRegion "false")
+
+// ********** Output settings
+//the format of resulting deformed moving image
+(ResultImageFormat "mha")
+//Default pixel value for pixels that come from outside the picture:
+(DefaultPixelValue 0)
+(WriteTransformParametersEachIteration "false")
+(WriteTransformParametersEachResolution "false")
+(WriteResultImageAfterEachResolution "false")
+(WritePyramidImagesAfterEachResolution "false")
+(WriteResultImage "false")
+
+// ********** Settings for Stefan's PSGD
+(SigmoidInitialTime 0.0)
+(SelfHessianSmoothingSigma 0.01 )
+(SelfHessianNoiseRange 0.00)
+(NumberOfSamplesForSelfHessian 100000 100000 500000)
+(DiagonalWeight 0.01)
+
+// ********** Settings for Jacobi type PSGD
+(JacobiTypePreconditioner "true")
+
+// ********** Settings for new PSGD
+//***************testing
+// these two conflict to be solved after testing
+//(NumberOfSamplesForPrecondition 50000 100000 500000)
+(NumberOfSamplesForPrecondition 50000)
+(UseAdaptiveStepSizes "true")
+(StepSizeStrategy "Adaptive")
+(MaximumStepLengthRatio 1.0)
+(UseNoiseFactor "true")
+(SP_A 20)
+(ASGDParameterEstimationMethod "DisplacementDistribution")
+(RegularizationKappa 0.9)
+(ConditionNumber 2.0)
+//(NumberOfJacobianMeasurements 50000 100000 400000)
+
+// ********** Additional settings for Stefan's PSGD

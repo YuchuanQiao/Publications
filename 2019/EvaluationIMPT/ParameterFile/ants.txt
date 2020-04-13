@@ -1,0 +1,1 @@
+antsRegistration --dimensionality 3 --metric MI[fixed, moving, 1,32,Random,0.25] --transform BSplineSyN[0.3, 3, 0] --convergence [80x80x60,1.e-6,10] --output outputFileName -f 3x2x1 -s 4x2x1
